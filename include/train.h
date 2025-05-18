@@ -2,7 +2,7 @@
 #ifndef INCLUDE_TRAIN_H_
 #define INCLUDE_TRAIN_H_
 
-#include <cstddef>
+#include <cstdint>
 
 class Train {
  private:
@@ -10,11 +10,13 @@ class Train {
     bool light;
     Car* next;
     Car* prev;
-    explicit Car(bool l) : light(l), next(this), prev(this) {}
+
+    // Конструктор с параметром по умолчанию
+    explicit Car(bool l = false) : light(l), next(this), prev(this) {}
   };
 
   Car* first;
-  std::size_t countOp;
+  int64_t countOp;
 
  public:
   Train();
@@ -22,9 +24,9 @@ class Train {
 
   void addCar(bool light);
 
-  std::size_t getLength();
+  int64_t getLength();
 
-  std::size_t getOpCount() const;
+  int64_t getOpCount() const { return countOp; }
 };
 
 #endif  // INCLUDE_TRAIN_H_
