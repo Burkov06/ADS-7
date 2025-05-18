@@ -31,9 +31,8 @@ std::size_t Train::getLength() {
     countOp = 0;
     if (!first) return 0;
 
-    Car* p = first;
+    const Car* p = first;
     bool hasOn = false;
-    
     do {
         if (p->light) {
             hasOn = true;
@@ -46,39 +45,39 @@ std::size_t Train::getLength() {
     if (!hasOn) {
         first->light = true;
         countOp++;
-        
+
         std::size_t len = 1;
-        Car* cur = first->next;
+        const Car* cur = first->next;
         while (cur != first) {
             cur = cur->next;
             len++;
             countOp++;
         }
-        
+
         cur = first->next;
         while (cur != first) {
             cur = cur->next;
             countOp++;
         }
-        
+
         first->light = false;
         return len;
     } else {
         std::size_t len = 1;
-        Car* cur = first->next;
+        const Car* cur = first->next;
         countOp++;
         while (cur != first) {
             cur = cur->next;
             len++;
             countOp++;
         }
-        
+
         for (std::size_t i = 0; i < len; i++) {
             for (std::size_t j = 0; j < len; j++) {
                 countOp++;
             }
         }
-        
+
         return len;
     }
 }
