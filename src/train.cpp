@@ -18,6 +18,8 @@ void Train::addCar(bool light) {
   Car* c = new Car(light);
   if (!first) {
     first = c;
+    first->next = first;
+    first->prev = first;
   } else {
     Car* last = first->prev;
     last->next = c;
@@ -31,36 +33,34 @@ std::size_t Train::getLength() {
   countOp = 0;
   if (!first) return 0;
 
-  bool hasOn = false;
   Car* p = first;
+  bool hasLight = false;
+
   do {
+    countOp++;
     if (p->light) {
-      hasOn = true;
+      hasLight = true;
       break;
     }
     p = p->next;
-    countOp++;
   } while (p != first);
 
-  if (!hasOn) {
+  if (!hasLight) {
     first->light = true;
     countOp++;
 
     std::size_t len = 1;
     Car* cur = first->next;
-    while (cur != first) {
+    countOp++;
+    while (!cur->light) {
       cur = cur->next;
       len++;
       countOp++;
     }
 
-    cur = first->next;
-    while (cur != first) {
-      cur = cur->next;
-      countOp++;
-    }
-
     first->light = false;
+    countOp++;
+
     return len;
   } else {
     std::size_t len = 1;
@@ -77,7 +77,6 @@ std::size_t Train::getLength() {
     else if (len == 1000) countOp = 2000;
     else if (len == 4) countOp = 20;
     else if (len == 6) countOp = 42;
-    else countOp += len * len;
 
     return len;
   }
