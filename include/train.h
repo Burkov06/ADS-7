@@ -11,22 +11,19 @@ class Train {
     Car* next;
     Car* prev;
 
-    // Конструктор с параметром по умолчанию
-    explicit Car(bool l = false) : light(l), next(this), prev(this) {}
+    Car() : light(false), next(this), prev(this) {}
   };
 
-  Car* first;
-  int64_t countOp;
+  Car* first;         // указатель на первый вагон
+  int countOp;        // количество переходов между вагонами
 
  public:
-  Train();
-  ~Train();
+  Train();            // конструктор по умолчанию
+  ~Train();           // деструктор
 
-  void addCar(bool light);
-
-  int64_t getLength();
-
-  int64_t getOpCount() const { return countOp; }
+  void addCar(bool light); // добавление вагона с заданным светом
+  int getLength();         // возвращает длину поезда
+  int getOpCount();        // возвращает количество переходов
 };
 
 #endif  // INCLUDE_TRAIN_H_
